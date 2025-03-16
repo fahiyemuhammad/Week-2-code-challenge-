@@ -7,8 +7,7 @@ const ramens = [
  ];
 
  function displayRamens() {
-    const menuDiv = document.getElementById("ramen-menu");
-     const form = document.getElementById("order-form")
+    const menuDiv = document.getElementById("ramen-menu");     
     ramens.forEach(ramen => {
         let img = document.createElement("img");
         img.src = ramen.image;
@@ -19,66 +18,74 @@ const ramens = [
 
 
         img.addEventListener("click",function handleClick(){
-              const restaurant = document.getElementsByTagName("p")[0]
+              const name = document.getElementsByTagName("p")[0]
+               name.textContent = `Name:  ${ramen.name}`
+              const restaurant = document.getElementsByTagName("p")[1]
               restaurant.textContent= ` Restaurant:  ${ramen.restaurant}`
-              const rating = document.getElementsByTagName("p")[1]
+              const rating = document.getElementsByTagName("p")[2]
               rating.textContent = `Rating:  ${ramen.rating} / 10`
-              const comment = document.getElementsByTagName("p")[2]
+              const comment = document.getElementsByTagName("p")[3]
               comment.textContent = `Comment:  ${ramen.comment}`
               const image = document.getElementById("ramen-img")
               image.src = ramen.image
               image.alt = ramen.name
               
         })
+    });
+    const form = document.getElementById("order-form");
+    const submitButton = document.getElementById("submit-button");
 
-         form.addEventListener("submit",function addSubmitListener(event){
-            event.preventDefault();
-             const NewdishName = document.getElementById("dish-name").value
-             ramens.name = NewdishName
-             const Newrestaurant = document.getElementById("restaurant-name").value
-             ramens.restaurant = Newrestaurant 
-             const NewImage = document.getElementById("image").value
-             ramens.image = NewImage
-             const NewRating = document.getElementById("rating").value
-             ramens.rating = NewRating
-             const NewComment = document.getElementById("comment").value
-             ramens.comment = NewComment
-    
-            
-            const newRamenImg = document.createElement("img");
-            newRamenImg.src = NewImage
-            newRamenImg.alt = NewdishName;
-            newRamenImg.classList.add("ramen-img");
+    submitButton.addEventListener("click", function (event) {
+        event.preventDefault();
 
-            document.getElementById("ramen-menu").appendChild(newRamenImg);
-    
         
-            newRamenImg.addEventListener("click", function () {
-                const restaurant = document.getElementsByTagName("p")[0]
-                restaurant.textContent= ` Restaurant:  ${Newrestaurant}`
-                const rating = document.getElementsByTagName("p")[1]
-                rating.textContent = `Rating:  ${NewRating} / 10`
-                const comment = document.getElementsByTagName("p")[2]
-                comment.textContent = `Comment:  ${NewComment}`
-                const image = document.getElementById("ramen-img")
-                image.src = NewImage
-                image.alt = NewdishName
-            });
+        const newDishName = document.getElementById("dish-name").value;
+        const newRestaurant = document.getElementById("restaurant-name").value;
+        const newImage = document.getElementById("image").value;
+        const newRating = document.getElementById("rating").value;
+        const newComment = document.getElementById("comment").value;
+
+        
+
+        
+        const newRamen = {
+            name: newDishName,
+            restaurant: newRestaurant,
+            image: newImage,
+            rating: newRating,
+            comment: newComment
+        };
+
     
+        const newRamenImg = document.createElement("img");
+        newRamenImg.src = newImage;
+        newRamenImg.alt = newDishName;
+        newRamenImg.classList.add("ramen-img");
+
+        
+        document.getElementById("ramen-menu").appendChild(newRamenImg);
+
+        
+        newRamenImg.addEventListener("click", function () {
+            const name = document.getElementsByTagName("p")[0]
+               name.textContent = `Name:  ${newRamen.name}`
+              const restaurant = document.getElementsByTagName("p")[1]
+              restaurant.textContent= ` Restaurant:  ${newRamen.restaurant}`
+              const rating = document.getElementsByTagName("p")[2]
+              rating.textContent = `Rating:  ${newRamen.rating} / 10`
+              const comment = document.getElementsByTagName("p")[3]
+              comment.textContent = `Comment:  ${newRamen.comment}`
+              const image = document.getElementById("ramen-img")
+              image.src = newRamen.image
+              image.alt = newRamen.name
+        });
         
             form.reset();
-        });
+        
            
         
     });
 }
-
-
-
-
-        
-
-
 
 window.onload = function main(){
     displayRamens();
